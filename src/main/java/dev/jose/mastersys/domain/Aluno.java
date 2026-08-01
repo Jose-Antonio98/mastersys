@@ -38,6 +38,8 @@ public class Aluno {
     private String estado;
     private String cep;
 
+
+
     @Column(name = "Criado_em")
     private LocalDateTime criadoEm;
 

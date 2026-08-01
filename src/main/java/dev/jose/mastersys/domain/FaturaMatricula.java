@@ -28,6 +28,7 @@ public class FaturaMatricula {
     @Column(name = "data_cancelamento")
     private LocalDate dataCancelamento;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Statusfatura  statusfatura = Statusfatura.ABERTA;
 
