@@ -32,7 +32,7 @@ public class FaturaMatricula {
     private Statusfatura  statusfatura = Statusfatura.ABERTA;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "matricula_id")
+    @JoinColumn(name = "matricula_id")
     private Matricula matricula;
 
 
