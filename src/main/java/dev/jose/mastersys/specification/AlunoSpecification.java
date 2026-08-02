@@ -18,7 +18,7 @@ public class AlunoSpecification {
     }
 
     private static Specification<Aluno> nomeContem(String nome) {
-        return (root, query, criteriaBuilder) -> {
+        return (root, ignoredQuery, criteriaBuilder) -> {
             if (nome == null || nome.isBlank()) {
                 return null;
             }
@@ -31,7 +31,7 @@ public class AlunoSpecification {
     }
 
     private static Specification<Aluno> emailContem(String email) {
-        return (root, query, criteriaBuilder) -> {
+        return (root, ignoredQuery, criteriaBuilder) -> {
             if (email == null || email.isBlank()) {
                 return null;
             }
@@ -42,7 +42,7 @@ public class AlunoSpecification {
     }
 
     private static Specification<Aluno> celularContem(String celular) {
-        return (root, query, criteriaBuilder) -> {
+        return (root, ignoredQuery, criteriaBuilder) -> {
             if (celular == null || celular.isBlank()) {
                 return null;
             }
@@ -53,7 +53,7 @@ public class AlunoSpecification {
     }
 
     private static Specification<Aluno> cidadeContem(String cidade) {
-        return (root, query, criteriaBuilder) -> {
+        return (root, ignoredQuery, criteriaBuilder) -> {
             if (cidade == null || cidade.isBlank()) {
                 return null;
             }
@@ -66,7 +66,7 @@ public class AlunoSpecification {
     }
 
     private static Specification<Aluno> estadoIgual(String estado) {
-        return (root, query, criteriaBuilder) -> {
+        return (root, ignoredQuery, criteriaBuilder) -> {
             if (estado == null || estado.isBlank()) {
                 return null;
             }
