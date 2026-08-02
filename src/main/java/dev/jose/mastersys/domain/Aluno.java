@@ -48,11 +48,11 @@ public class Aluno {
 
     @PrePersist
     public void prePersist() {
-        this.dataNascimento = LocalDate.now();
+        this.criadoEm = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.dataNascimento = LocalDate.now();
+        this.atualizadoEm = LocalDateTime.now();
     }
 }
