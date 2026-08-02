@@ -1,0 +1,153 @@
+@baseUrl = http://localhost:8081
+
+
+### Cadastrar aluno
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome": "José Antonio",
+  "dataNascimento": "1998-02-04",
+  "sexo": "M",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "joseantonio@email.com",
+  "observacao": "aluno iniciante",
+  "endereco": "Rua Marcio Pereira",
+  "numero": "236",
+  "complemento": "casa",
+  "bairro": "Vila Paulo",
+  "cidade": "Cruzeiro",
+  "estado": "SP",
+  "cep": "12410400"
+}
+
+
+### Listar alunos
+GET {{baseUrl}}/alunos
+
+### Listar alunos c/ paginação
+GET {{baseUrl}}/alunos?page=0&size=10&sort=nome,asc
+
+### Buscar aluno por id
+GET {{baseUrl}}/alunos/2
+
+### Atualizar aluno
+PUT {{baseUrl}}/alunos/2
+Content-Type: application/json
+
+{
+  "nome": "José Antonio Chaves Junior",
+  "dataNascimento": "1998-02-04",
+  "sexo": "M",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "joseantonio@email.com",
+  "observacao": "aluno iniciante",
+  "endereco": "Rua Marcio Pereira",
+  "numero": "236",
+  "complemento": "casa",
+  "bairro": "Vila Paulo",
+  "cidade": "Cruzeiro",
+  "estado": "SP",
+  "cep": "12410400"
+}
+
+### Excluir aluno
+DELETE {{baseUrl}}/alunos/3
+
+### Adicionar novo aluno
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome": "Maria Luiza",
+  "dataNascimento": "2000-02-04",
+  "sexo": "F",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "marialuiza@email.com",
+  "observacao": "aluno iniciante",
+  "endereco": "Rua Marcio Pereira",
+  "numero": "236",
+  "complemento": "casa",
+  "bairro": "Vila Paulo",
+  "cidade": "Cruzeiro",
+  "estado": "SP",
+  "cep": "12410400"
+}
+
+### Cadastrar aluno duplicado
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome": "José Antonio",
+  "dataNascimento": "1998-02-04",
+  "sexo": "M",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "joseantonio@email.com",
+  "observacao": "aluno iniciante",
+  "endereco": "Rua Marcio Pereira",
+  "numero": "236",
+  "complemento": "casa",
+  "bairro": "Vila Paulo",
+  "cidade": "Cruzeiro",
+  "estado": "SP",
+  "cep": "12410400"
+}
+
+### Cadastrar aluno sem nome
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome": "",
+  "dataNascimento": "1998-02-04",
+  "sexo": "M",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "joseantonio2@email.com",
+  "observacao": "aluno iniciante",
+  "endereco": "Rua Marcio Pereira",
+  "numero": "236",
+  "complemento": "casa",
+  "bairro": "Vila Paulo",
+  "cidade": "Cruzeiro",
+  "estado": "SP",
+  "cep": "12410400"
+}
+
+### Cadastrar aluno invalido
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome": "",
+  "dataNascimento": "1998-02-04",
+  "sexo": "Masculino",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "email",
+  "observacao": "aluno iniciante",
+  "endereco": "Rua Marcio Pereira",
+  "numero": "236",
+  "complemento": "casa",
+  "bairro": "Vila Paulo",
+  "cidade": "Cruzeiro",
+  "estado": "São Paulo",
+  "cep": "12410400"
+}
+
+### Listar todos
+GET {{baseUrl}}/alunos?page=0&size10&sort=nome,asc
+
+### Listar por nome
+GET {{baseUrl}}/alunos?nome=jose&page=0&size=10&sort=nome,asc
+
+### Listar por email
+GET {{baseUrl}}/alunos?email=maria&page=0&size=10&sort=email,asc
+
+### Listar por estado
+GET {{baseUrl}}/alunos?sp=maria&page=0&size=10&sort=email,asc
