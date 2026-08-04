@@ -14,6 +14,7 @@ public class Modalidade {
 
     private String nome;
 
+    @Column(nullable = false)
     private Boolean ativa = true;
 
 }

@@ -37,6 +37,30 @@ public class GlobalExceptionHandler {
         return criarResposta(HttpStatus.NOT_FOUND,"Recurso não encontrado", List.of(ex.getMessage()));
     }
 
+    @ExceptionHandler(ModalidadeJaAtiva.class)
+    public ResponseEntity<ErroResponse> tratarModalidadeJaAtiva(ModalidadeJaAtiva ex) {
+        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
+        );
+    }
+
+    @ExceptionHandler(ModalidadeJaInativa.class)
+    public ResponseEntity<ErroResponse> tratarModalidadeJaInativa(ModalidadeJaInativa ex) {
+        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
+        );
+    }
+
+    @ExceptionHandler(ModalidadeJaCadastradaException.class)
+    public ResponseEntity<ErroResponse> tratarModalidadeJaCadastrada(ModalidadeJaCadastradaException ex) {
+        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
+        );
+    }
+
+    @ExceptionHandler(ModalidadeNaoEncontradaException.class)
+    public ResponseEntity<ErroResponse> tratarModalidadeNaoEncontrada(ModalidadeNaoEncontradaException ex) {
+        return criarResposta(HttpStatus.NOT_FOUND, "Recurso não encontrado", List.of(ex.getMessage())
+        );
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErroResponse> tratarErroGenerico() {
 
