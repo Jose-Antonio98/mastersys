@@ -5,7 +5,7 @@ import dev.jose.mastersys.dto.AlunoFiltroRequest;
 import dev.jose.mastersys.dto.AlunoRequest;
 import dev.jose.mastersys.dto.AlunoResponse;
 import dev.jose.mastersys.exception.AlunoNaoEncontradoException;
-import dev.jose.mastersys.exception.EmailJaCadastradoException;
+import dev.jose.mastersys.exception.RecursoJaCadastradoException;
 import dev.jose.mastersys.repository.AlunoRepository;
 
 import dev.jose.mastersys.specification.AlunoSpecification;
@@ -24,7 +24,7 @@ public class AlunoService {
 
     public AlunoResponse cadastrar(AlunoRequest request){
         if (request.email() != null && alunoRepository.existsByEmail(request.email())) {
-            throw new EmailJaCadastradoException();
+            throw new RecursoJaCadastradoException("Aluno", request.email());
         }
 
         return AlunoResponse.fromEntity(alunoRepository.save(request.toEntity()));

@@ -56,9 +56,9 @@ public record AlunoRequest(
 ) {
 
     public Aluno toEntity() {
-        Aluno aluno = new Aluno();
-         preencher(aluno);
-         return aluno;
+        var aluno = new Aluno();
+        preencher(aluno);
+        return aluno;
     }
 
     public void preencher (Aluno aluno) {
