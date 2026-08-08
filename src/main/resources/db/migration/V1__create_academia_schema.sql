@@ -24,14 +24,6 @@ create table modalidades(
     ativa BOOLEAN not null default true
 );
 
-create table graduacoes
-(
-    id BIGSERIAL PRIMARY KEY,
-    modalidade_id BIGINT not null references modalidades(id),
-    nome varchar(100) not null,
-    UNIQUE (modalidade_id, nome)
-);
-
 create table planos(
     id BIGSERIAL PRIMARY KEY,
     modalidade_id BIGINT not null references modalidades(id),
@@ -55,7 +47,6 @@ create table matriculas_modalidades(
     id BIGSERIAL PRIMARY KEY,
     matricula_id BIGINT not null references matriculas(id),
     modalidade_id BIGINT not null references modalidades(id),
-    graduacao_id BIGINT references graduacoes (id),
     plano_id BIGINT not null references planos(id),
     data_inicio date not null default current_date,
     data_fim date,
