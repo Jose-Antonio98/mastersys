@@ -20,7 +20,7 @@ public class ModalidadeService {
 
     public ModalidadeResponse cadastrarModalidade(ModalidadeRequest request) {
         if (modalidadeRepository.existsByNomeIgnoreCase(request.nome())) {
-            throw new ModalidadeJaCadastradaException(request.nome());
+            throw new RecursoJaCadastradoException("Modalidade", request.nome());
         }
 
         return ModalidadeResponse.fromEntity(modalidadeRepository.save(request.toEntity()));
@@ -54,7 +54,7 @@ public class ModalidadeService {
         var modalidade = buscarEntityPorId(id);
 
         if (!modalidade.getAtiva()){
-            throw new ModalidadeJaInativa(modalidade.getNome());
+            throw new RecursoJaInativoException("Modalidade", modalidade.getNome());
         }
         alterarAtividade(modalidade, false);
     }
@@ -63,7 +63,7 @@ public class ModalidadeService {
         var modalidade = buscarEntityPorId(id);
 
         if (modalidade.getAtiva()){
-            throw new ModalidadeJaAtiva(modalidade.getNome());
+            throw new RecursoJaAtivoException("Modalidade", modalidade.getNome());
         }
         alterarAtividade(modalidade, true);
     }

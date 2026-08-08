@@ -18,6 +18,7 @@ public class ModalidadeController {
     public ModalidadeController(ModalidadeService modalidadeService) {
         this.modalidadeService = modalidadeService;
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ModalidadeResponse cadastrar(@RequestBody @Valid ModalidadeRequest modalidadeRequest) {
@@ -33,6 +34,7 @@ public class ModalidadeController {
     public List<ModalidadeResponse> listar() {
         return modalidadeService.listarModalidades();
     }
+
     @GetMapping("/disponiveis")
     public List<ModalidadeResponse> listarDisponiveis() {
         return modalidadeService.listarModalidadesAtivas();

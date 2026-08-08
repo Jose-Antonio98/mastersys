@@ -29,10 +29,6 @@ public class MatriculaModalidade {
     private Modalidade modalidade;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "graduacao_id")
-    private Graduacao graduacao;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plano_id")
     private Plano plano;
 
