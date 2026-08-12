@@ -52,4 +52,10 @@ public class PlanoController {
     public void inativarPlano(@PathVariable Long id) {
         planoService.inativarPlano(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removerPlano(@PathVariable Long id) {
+        planoService.removerPlano(id);
+    }
 }

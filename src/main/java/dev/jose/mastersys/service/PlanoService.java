@@ -28,7 +28,6 @@ public class PlanoService {
 
         var modalidade = buscarModalidadePorId(request.modalidadeId());
 
-
         validarPlanoDuplicado(request.nome(), request.modalidadeId());
 
         var plano = request.toEntity();
@@ -42,9 +41,7 @@ public class PlanoService {
 
         var plano = buscarEntityPorId(planoId);
 
-        if (!plano.getNome().equalsIgnoreCase(request.nome())) {
-            validarPlanoDuplicadoAtualizacao(plano, request.nome());
-        }
+        validarPlanoDuplicadoAtualizacao(plano, request.nome());
 
         request.preencher(plano);
 
@@ -82,20 +79,21 @@ public class PlanoService {
         alterarAtividade(plano, true);
     }
 
-
-
+    public void removerPlano(Long id) {
+        planosRepository.delete(buscarEntityPorId(id));
+    }
 
 
     private void validarPlanoDuplicado(String nome, Long idModalidade){
 
-        if(planosRepository.existsByNomeAndModalidadeId(nome, idModalidade)){
+        if(planosRepository.existsByNomeIgnoreCaseAndAcentos(nome, idModalidade)){
             throw new RecursoJaCadastradoException("Plano", nome);
         }
     }
 
     private void validarPlanoDuplicadoAtualizacao(Plano plano, String novoNome) {
 
-        if (planosRepository.existsByNomeAndModalidadeIdAndIdNot(novoNome, plano.getModalidade().getId(),
+        if (planosRepository.existsByNomeIgnoreCaseAndAcentosAndIdNot(novoNome, plano.getModalidade().getId(),
                 plano.getId())) {
 
             throw new RecursoJaCadastradoException("Plano", novoNome);
