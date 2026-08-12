@@ -7,6 +7,7 @@ import dev.jose.mastersys.exception.*;
 import dev.jose.mastersys.repository.ModalidadeRepository;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
 import java.util.List;
 
 @Service
@@ -19,16 +20,18 @@ public class ModalidadeService {
     }
 
     public ModalidadeResponse cadastrarModalidade(ModalidadeRequest request) {
-        if (modalidadeRepository.existsByNomeIgnoreCase(request.nome())) {
-            throw new RecursoJaCadastradoException("Modalidade", request.nome());
-        }
+        validarModalidadeDuplicada(request.nome());
 
         return ModalidadeResponse.fromEntity(modalidadeRepository.save(request.toEntity()));
     }
 
     public ModalidadeResponse atualizarModalidade(Long id, ModalidadeRequest request) {
         var modalidade = buscarEntityPorId(id);
+
+        validarModalidadeDuplicadaAtualizacao(id, request.nome());
+
         request.preencher(modalidade);
+
         return ModalidadeResponse.fromEntity(modalidadeRepository.save(modalidade));
     }
 
@@ -68,6 +71,10 @@ public class ModalidadeService {
         alterarAtividade(modalidade, true);
     }
 
+    public void removerModalidade(Long id) {
+        modalidadeRepository.delete(buscarEntityPorId(id));
+    }
+
 
 
     private Modalidade buscarEntityPorId(Long id){
@@ -79,4 +86,15 @@ public class ModalidadeService {
         modalidadeRepository.save(modalidade);
     }
 
+    private void validarModalidadeDuplicada(String nome) {
+        if (modalidadeRepository.existsByNomeIgnoreCaseAndAcentos(nome)) {
+            throw new RecursoJaCadastradoException("Modalidade", nome);
+        }
+    }
+
+    private void validarModalidadeDuplicadaAtualizacao(long id, String nome) {
+        if (modalidadeRepository.existsByNomeIgnoreCaseAndAcentosAndIdNot(nome, id)) {
+            throw new RecursoJaCadastradoException("Modalidade", nome);
+        }
+    }
 }

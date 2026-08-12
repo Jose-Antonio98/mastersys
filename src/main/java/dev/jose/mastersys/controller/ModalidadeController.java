@@ -56,4 +56,10 @@ public class ModalidadeController {
     public void inativarModalidade(@PathVariable Long id) {
         modalidadeService.inativarModalidade(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable Long id) {
+        modalidadeService.removerModalidade(id);
+    }
 }
