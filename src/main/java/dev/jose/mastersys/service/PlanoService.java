@@ -9,11 +9,13 @@ import dev.jose.mastersys.exception.*;
 import dev.jose.mastersys.repository.ModalidadeRepository;
 import dev.jose.mastersys.repository.PlanosRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 
 @Service
+@Transactional(readOnly = true)
 public class PlanoService {
 
     private final PlanosRepository planosRepository;
@@ -24,6 +26,7 @@ public class PlanoService {
         this.modalidadeRepository = modalidadeRepository;
     }
 
+    @Transactional
     public PlanoResponse cadastrarPlano(PlanoRequest request){
 
         var modalidade = buscarModalidadePorId(request.modalidadeId());
@@ -37,6 +40,7 @@ public class PlanoService {
         return PlanoResponse.fromEntity(planosRepository.save(plano));
     }
 
+    @Transactional
     public PlanoResponse atualizarPlano(Long planoId, PlanoAtualizacaoRequest request){
 
         var plano = buscarEntityPorId(planoId);
@@ -61,6 +65,7 @@ public class PlanoService {
                 .toList();
     }
 
+    @Transactional
     public void inativarPlano(Long id) {
         var plano = buscarEntityPorId(id);
 
@@ -70,6 +75,7 @@ public class PlanoService {
         alterarAtividade(plano, false);
     }
 
+    @Transactional
     public void ativarPlano(Long id) {
         var plano = buscarEntityPorId(id);
 
@@ -79,6 +85,7 @@ public class PlanoService {
         alterarAtividade(plano, true);
     }
 
+    @Transactional
     public void removerPlano(Long id) {
         planosRepository.delete(buscarEntityPorId(id));
     }

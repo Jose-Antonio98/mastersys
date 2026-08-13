@@ -2,7 +2,6 @@ package dev.jose.mastersys.domain;
 
 import dev.jose.mastersys.domain.enums.Sexo;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
