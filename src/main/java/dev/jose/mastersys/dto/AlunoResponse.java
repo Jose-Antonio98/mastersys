@@ -1,6 +1,7 @@
 package dev.jose.mastersys.dto;
 
 import dev.jose.mastersys.domain.Aluno;
+import dev.jose.mastersys.domain.enums.Sexo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,12 +11,14 @@ public record AlunoResponse(
         Long id,
         String nome,
         LocalDate dataNascimento,
-        String sexo,
+        Sexo sexo,
         String celular,
         String email,
         String cidade,
         String estado,
-        LocalDateTime criadoEm
+        String observacoes,
+        LocalDateTime criadoEm,
+        LocalDateTime atualizadoEm
 ) {
 
     public static AlunoResponse fromEntity(Aluno aluno) {
@@ -28,7 +31,9 @@ public record AlunoResponse(
                 aluno.getEmail(),
                 aluno.getCidade(),
                 aluno.getEstado(),
-                aluno.getCriadoEm()
+                aluno.getObservacao(),
+                aluno.getCriadoEm(),
+                aluno.getAtualizadoEm()
         );
     }
 }

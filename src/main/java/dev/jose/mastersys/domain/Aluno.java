@@ -1,7 +1,10 @@
 package dev.jose.mastersys.domain;
 
+import dev.jose.mastersys.domain.enums.Sexo;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import java.time.LocalDate;
@@ -9,20 +12,21 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "alunos")
-@Data
+@Getter @Setter
 public class Aluno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String nome;
 
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name = "sexo", length = 1)
-    private String sexo;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 1)
+    private Sexo sexo;
 
     private String telefone;
     private String celular;
@@ -40,7 +44,7 @@ public class Aluno {
 
 
 
-    @Column(name = "Criado_em")
+    @Column(name = "criado_em", nullable = false, updatable = false)
     private LocalDateTime criadoEm;
 
     @Column(name = "atualizado_em")

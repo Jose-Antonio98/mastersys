@@ -1,38 +1,36 @@
 package dev.jose.mastersys.dto;
 
 import dev.jose.mastersys.domain.Aluno;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import dev.jose.mastersys.domain.enums.Sexo;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
 public record AlunoRequest(
 
-        @NotBlank(message = "O nome é obrigatorio.")
+        @NotBlank(message = "O nome é obrigatório.")
         @Size(min = 3, max = 150, message = "O nome deve conter entre 3 a 150 caracteres.")
         String nome,
 
         @Past(message = "A data de nascimento deve estar no passado.")
         LocalDate dataNascimento,
 
-        @Size(max = 1, message = "O campo deve ter no maximo um caractere (M, F).")
-        String sexo,
+        @NotNull(message = "O sexo é obrigatório.")
+        Sexo sexo,
 
-        @Size(max = 30, message = "O telefone deve conter no maximo 30 caracteres.")
+        @Size(max = 20, message = "O telefone deve conter no máximo 20 caracteres.")
         String telefone,
 
-        @Size(max = 30, message = "O celular deve conter no maximo 30 caracteres.")
+        @Size(max = 20, message = "O celular deve conter no máximo 20 caracteres.")
         String celular,
 
-        @Email(message = "Entre com um e-mail valido")
-        @Size(max = 150, message = "O email deve conter no maximo 150 caracteres.")
+        @Email(message = "Entre com um e-mail válido")
+        @Size(max = 150, message = "O email deve conter no máximo 150 caracteres.")
         String email,
 
         String observacao,
 
-        @Size(max = 150, message = "O endereço deve conter no maximo 150 caracteres.")
+        @Size(max = 150, message = "O endereço deve conter no máximo 150 caracteres.")
         String endereco,
 
         @Size(max = 20, message = "O numero não deve ultrapassar 20 caracteres.")
