@@ -1,18 +1,20 @@
 package dev.jose.mastersys.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "matriculas_modalidades")
-@Data
+@Getter
+@Setter
 public class MatriculaModalidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "data_inicio")
     private LocalDate dataInicio;
@@ -27,10 +29,6 @@ public class MatriculaModalidade {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "modalidade_id")
     private Modalidade modalidade;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "graduacao_id")
-    private Graduacao graduacao;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plano_id")

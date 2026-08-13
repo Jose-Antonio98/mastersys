@@ -3,9 +3,11 @@ package dev.jose.mastersys.controller;
 import dev.jose.mastersys.dto.AlunoFiltroRequest;
 import dev.jose.mastersys.dto.AlunoRequest;
 import dev.jose.mastersys.dto.AlunoResponse;
+import dev.jose.mastersys.dto.AlunoAtualizacaoRequest;
 import dev.jose.mastersys.service.AlunoService;
 
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -28,7 +30,7 @@ public class AlunoController {
     }
 
     @GetMapping
-    public Page<AlunoResponse> listar(AlunoFiltroRequest filtro, Pageable pageable){
+    public Page<AlunoResponse> listar(@ParameterObject AlunoFiltroRequest filtro, @ParameterObject Pageable pageable){
         return alunoService.listar(filtro, pageable);
     }
 
@@ -40,6 +42,11 @@ public class AlunoController {
     @PutMapping("/{id}")
     public AlunoResponse atualizar(@PathVariable Long id, @RequestBody @Valid AlunoRequest request){
         return alunoService.atualizar(id, request);
+    }
+
+    @PatchMapping("/{id}")
+    public AlunoResponse atualizarParcial(@PathVariable Long id, @RequestBody @Valid AlunoAtualizacaoRequest request){
+        return alunoService.atualizarParcial(id, request);
     }
 
     @DeleteMapping("/{id}")

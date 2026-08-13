@@ -23,36 +23,12 @@ public class GlobalExceptionHandler {
        return criarResposta(HttpStatus.BAD_REQUEST, "Erro de validação", mensagens);
     }
 
-    @ExceptionHandler(EmailJaCadastradoException.class)
-    public ResponseEntity<ErroResponse> tratarEmailJaCadastrado(
-            EmailJaCadastradoException ex) {
-
-        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage()));
-    }
-
+    //Tratamentos de busca especificos
     @ExceptionHandler(AlunoNaoEncontradoException.class)
     public ResponseEntity<ErroResponse> tratarAlunoNaoEncontrado(
             AlunoNaoEncontradoException ex){
 
         return criarResposta(HttpStatus.NOT_FOUND,"Recurso não encontrado", List.of(ex.getMessage()));
-    }
-
-    @ExceptionHandler(ModalidadeJaAtiva.class)
-    public ResponseEntity<ErroResponse> tratarModalidadeJaAtiva(ModalidadeJaAtiva ex) {
-        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
-        );
-    }
-
-    @ExceptionHandler(ModalidadeJaInativa.class)
-    public ResponseEntity<ErroResponse> tratarModalidadeJaInativa(ModalidadeJaInativa ex) {
-        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
-        );
-    }
-
-    @ExceptionHandler(ModalidadeJaCadastradaException.class)
-    public ResponseEntity<ErroResponse> tratarModalidadeJaCadastrada(ModalidadeJaCadastradaException ex) {
-        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
-        );
     }
 
     @ExceptionHandler(ModalidadeNaoEncontradaException.class)
@@ -61,8 +37,39 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(PlanoNaoEncontradoException.class)
+    public ResponseEntity<ErroResponse> tratarPlanoNaoEncontrado(
+            PlanoNaoEncontradoException ex){
+        return criarResposta(HttpStatus.NOT_FOUND, "Recurso não encontrado", List.of(ex.getMessage()));
+    }
+
+
+
+
+    //Tratamentos de genericos
+    @ExceptionHandler(RecursoJaCadastradoException.class)
+    public ResponseEntity<ErroResponse> tratarRecursoJaCadastrado(
+            RecursoJaCadastradoException ex) {
+
+        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage()));
+    }
+
+    @ExceptionHandler(RecursoJaAtivoException.class)
+    public ResponseEntity<ErroResponse> tratarRecursoJaAtiva(RecursoJaAtivoException ex) {
+        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
+        );
+    }
+
+    @ExceptionHandler(RecursoJaInativoException.class)
+    public ResponseEntity<ErroResponse> tratarRecursoJaInativa(RecursoJaInativoException ex) {
+        return criarResposta(HttpStatus.CONFLICT, "Conflito", List.of(ex.getMessage())
+        );
+    }
+
+
+    //Tratamento geral(melhorar)
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErroResponse> tratarErroGenerico() {
+    public ResponseEntity<ErroResponse> tratarErroGenerico(Exception ex) {
 
         return criarResposta(
                 HttpStatus.INTERNAL_SERVER_ERROR,

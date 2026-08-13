@@ -1,10 +1,12 @@
+CREATE EXTENSION IF NOT EXISTS unaccent;
+
 create table alunos(
     id BIGSERIAL PRIMARY KEY,
     nome varchar(150) NOT NULL,
     data_nascimento Date,
-    sexo varchar(1) check (sexo IN ('M', 'F')),
-    telefone varchar(30),
-    celular varchar(30),
+    sexo char(1) check (sexo IN ('M', 'F')),
+    telefone varchar(20),
+    celular varchar(20),
     email varchar(150),
     observacao TEXT,
     endereco varchar(150),
@@ -12,10 +14,11 @@ create table alunos(
     complemento varchar(100),
     bairro varchar(100),
     cidade varchar(100),
-    estado varchar(20),
+    estado varchar(2),
     cep varchar(20),
     criado_em timestamp not null default current_timestamp,
-    atualizado_em timestamp
+    atualizado_em timestamp,
+    UNIQUE (email)
 );
 
 create table modalidades(
@@ -24,21 +27,14 @@ create table modalidades(
     ativa BOOLEAN not null default true
 );
 
-create table graduacoes
-(
-    id BIGSERIAL PRIMARY KEY,
-    modalidade_id BIGINT not null references modalidades(id),
-    nome varchar(100) not null,
-    UNIQUE (modalidade_id, nome)
-);
-
 create table planos(
     id BIGSERIAL PRIMARY KEY,
     modalidade_id BIGINT not null references modalidades(id),
     nome varchar(100) not null,
     valor_mensal numeric(10,2) not null check (valor_mensal >= 0),
     ativo BOOLEAN not null default true,
-    UNIQUE (modalidade_id, nome)
+    UNIQUE (modalidade_id, nome),
+    UNIQUE (id, modalidade_id)
 );
 
 create table matriculas(
@@ -55,12 +51,11 @@ create table matriculas_modalidades(
     id BIGSERIAL PRIMARY KEY,
     matricula_id BIGINT not null references matriculas(id),
     modalidade_id BIGINT not null references modalidades(id),
-    graduacao_id BIGINT references graduacoes (id),
-    plano_id BIGINT not null references planos(id),
+    plano_id BIGINT not null,
     data_inicio date not null default current_date,
     data_fim date,
-    unique (matricula_id, modalidade_id)
-
+    unique (matricula_id, modalidade_id),
+    FOREIGN KEY (plano_id, modalidade_id) REFERENCES planos(id, modalidade_id)
 );
 
 create table faturas_matriculas(

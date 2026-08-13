@@ -5,11 +5,14 @@ import dev.jose.mastersys.dto.ModalidadeRequest;
 import dev.jose.mastersys.dto.ModalidadeResponse;
 import dev.jose.mastersys.exception.*;
 import dev.jose.mastersys.repository.ModalidadeRepository;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class ModalidadeService {
 
     private final ModalidadeRepository modalidadeRepository;
@@ -18,17 +21,21 @@ public class ModalidadeService {
         this.modalidadeRepository = modalidadeRepository;
     }
 
+    @Transactional
     public ModalidadeResponse cadastrarModalidade(ModalidadeRequest request) {
-        if (modalidadeRepository.existsByNomeIgnoreCase(request.nome())) {
-            throw new ModalidadeJaCadastradaException(request.nome());
-        }
+        validarModalidadeDuplicada(request.nome());
 
         return ModalidadeResponse.fromEntity(modalidadeRepository.save(request.toEntity()));
     }
 
+    @Transactional
     public ModalidadeResponse atualizarModalidade(Long id, ModalidadeRequest request) {
         var modalidade = buscarEntityPorId(id);
+
+        validarModalidadeDuplicadaAtualizacao(id, request.nome());
+
         request.preencher(modalidade);
+
         return ModalidadeResponse.fromEntity(modalidadeRepository.save(modalidade));
     }
 
@@ -50,25 +57,30 @@ public class ModalidadeService {
                 .toList();
     }
 
+    @Transactional
     public void inativarModalidade(Long id) {
         var modalidade = buscarEntityPorId(id);
 
         if (!modalidade.getAtiva()){
-            throw new ModalidadeJaInativa(modalidade.getNome());
+            throw new RecursoJaInativoException("Modalidade", modalidade.getNome());
         }
         alterarAtividade(modalidade, false);
     }
 
+    @Transactional
     public void ativarModalidade(Long id) {
         var modalidade = buscarEntityPorId(id);
 
         if (modalidade.getAtiva()){
-            throw new ModalidadeJaAtiva(modalidade.getNome());
+            throw new RecursoJaAtivoException("Modalidade", modalidade.getNome());
         }
         alterarAtividade(modalidade, true);
     }
 
-
+    @Transactional
+    public void removerModalidade(Long id) {
+        modalidadeRepository.delete(buscarEntityPorId(id));
+    }
 
     private Modalidade buscarEntityPorId(Long id){
         return modalidadeRepository.findById(id).orElseThrow(() -> new ModalidadeNaoEncontradaException(id));
@@ -79,4 +91,15 @@ public class ModalidadeService {
         modalidadeRepository.save(modalidade);
     }
 
+    private void validarModalidadeDuplicada(String nome) {
+        if (modalidadeRepository.existsByNomeIgnoreCaseAndAcentos(nome)) {
+            throw new RecursoJaCadastradoException("Modalidade", nome);
+        }
+    }
+
+    private void validarModalidadeDuplicadaAtualizacao(long id, String nome) {
+        if (modalidadeRepository.existsByNomeIgnoreCaseAndAcentosAndIdNot(nome, id)) {
+            throw new RecursoJaCadastradoException("Modalidade", nome);
+        }
+    }
 }

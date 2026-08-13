@@ -2,18 +2,20 @@ package dev.jose.mastersys.domain;
 
 import dev.jose.mastersys.domain.enums.StatusMatricula;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "matriculas")
-@Data
+@Getter
+@Setter
 public class Matricula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "data_matricula")
     private LocalDate dataMatricula;
