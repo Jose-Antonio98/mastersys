@@ -25,9 +25,7 @@ public class GlobalExceptionHandler {
 
     //Tratamentos de busca especificos
     @ExceptionHandler(AlunoNaoEncontradoException.class)
-    public ResponseEntity<ErroResponse> tratarAlunoNaoEncontrado(
-            AlunoNaoEncontradoException ex){
-
+    public ResponseEntity<ErroResponse> tratarAlunoNaoEncontrado(AlunoNaoEncontradoException ex){
         return criarResposta(HttpStatus.NOT_FOUND,"Recurso não encontrado", List.of(ex.getMessage()));
     }
 
@@ -38,12 +36,25 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(PlanoNaoEncontradoException.class)
-    public ResponseEntity<ErroResponse> tratarPlanoNaoEncontrado(
-            PlanoNaoEncontradoException ex){
+    public ResponseEntity<ErroResponse> tratarPlanoNaoEncontrado(PlanoNaoEncontradoException ex){
         return criarResposta(HttpStatus.NOT_FOUND, "Recurso não encontrado", List.of(ex.getMessage()));
     }
 
+    @ExceptionHandler(MatriculaNaoEncontradaException.class)
+    public ResponseEntity<ErroResponse> tratarMatriculaNaoEncontrada(MatriculaNaoEncontradaException ex) {
+        return criarResposta(HttpStatus.NOT_FOUND, "Recurso não encontrado", List.of(ex.getMessage()));
+    }
 
+    @ExceptionHandler(StatusMatriculaInvalidoException.class)
+    public ResponseEntity<ErroResponse> tratarStatusInvalido(StatusMatriculaInvalidoException ex) {
+
+        return criarResposta(HttpStatus.BAD_REQUEST, "Status da matrícula inválido", List.of(ex.getMessage()));
+    }
+
+    @ExceptionHandler(DiaVencimentoInvalidoException.class)
+    public ResponseEntity<ErroResponse> tratarDiaVencimentoInvalido(DiaVencimentoInvalidoException ex) {
+        return criarResposta(HttpStatus.BAD_REQUEST, "Dia de vencimento invalido", List.of(ex.getMessage()));
+    }
 
 
     //Tratamentos de genericos
