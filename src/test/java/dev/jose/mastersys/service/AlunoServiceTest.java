@@ -448,6 +448,10 @@ public class AlunoServiceTest {
         verifyNoMoreInteractions(alunoRepository);
     }
 
+    // ==========================
+    // Utils
+    // ==========================
+
     private static @NonNull Aluno criarAluno() {
         Aluno aluno = AlunoTestFactory.alunoRequest().toEntity();
         aluno.setId(1L);
