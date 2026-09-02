@@ -68,7 +68,20 @@ public class AlunoServiceTest {
         assertEquals(request.observacao(), response.observacoes());
 
         verify(alunoRepository).existsByEmailIgnoreCase(request.email());
-        verify(alunoRepository).save(any(Aluno.class));
+
+        ArgumentCaptor<Aluno> captor = ArgumentCaptor.forClass(Aluno.class);
+
+        verify(alunoRepository).save(captor.capture());
+
+        assertEquals(request.nome(), captor.getValue().getNome());
+        assertEquals(request.dataNascimento(), captor.getValue().getDataNascimento());
+        assertEquals(request.sexo(), captor.getValue().getSexo());
+        assertEquals(request.celular(), captor.getValue().getCelular());
+        assertEquals(request.email(), captor.getValue().getEmail());
+        assertEquals(request.cidade(), captor.getValue().getCidade());
+        assertEquals(request.estado(), captor.getValue().getEstado());
+        assertEquals(request.observacao(), captor.getValue().getObservacao());
+
         verifyNoMoreInteractions(alunoRepository);
     }
 
