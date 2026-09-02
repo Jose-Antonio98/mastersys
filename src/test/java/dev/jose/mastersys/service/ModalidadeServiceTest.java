@@ -62,7 +62,14 @@ public class ModalidadeServiceTest {
         assertEquals(request.nome(), response.nome());
         assertTrue(response.ativa());
 
-        verify(modalidadeRepository).save(any(Modalidade.class));
+        ArgumentCaptor<Modalidade> modalidadeAtualizada = ArgumentCaptor.forClass(Modalidade.class);
+
+        verify(modalidadeRepository).save(modalidadeAtualizada.capture());
+
+        assertEquals(1L, modalidadeAtualizada.getValue().getId());
+        assertEquals(request.nome(), modalidadeAtualizada.getValue().getNome());
+        assertTrue(modalidadeAtualizada.getValue().getAtiva());
+
         verify(modalidadeRepository).existsByNomeIgnoreCaseAndAcentos(request.nome());
         verifyNoMoreInteractions(modalidadeRepository);
 

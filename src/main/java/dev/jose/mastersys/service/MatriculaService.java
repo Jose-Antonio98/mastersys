@@ -151,10 +151,6 @@ public class MatriculaService {
         if (matricula.getStatus() == StatusMatricula.CANCELADA) {
             throw new StatusMatriculaInvalidoException( "Uma matrícula cancelada não pode ser reativada.");
         }
-
-        if (matricula.getStatus() == StatusMatricula.ENCERRADA) {
-            throw new StatusMatriculaInvalidoException("Uma matrícula encerrada não pode ser reativada.");
-        }
     }
 
 }
