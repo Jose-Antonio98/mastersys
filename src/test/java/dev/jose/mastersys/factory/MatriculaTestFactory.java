@@ -1,7 +1,7 @@
 package dev.jose.mastersys.factory;
 
 
-import dev.jose.mastersys.dto.MatriculaRequest;
+import dev.jose.mastersys.matricula.dto.MatriculaRequest;
 
 
 public class MatriculaTestFactory {
