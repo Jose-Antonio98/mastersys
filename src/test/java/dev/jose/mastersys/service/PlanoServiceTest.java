@@ -504,12 +504,6 @@ public class PlanoServiceTest {
         return plano;
     }
 
-    private static @NonNull Plano criarPlanoComId(Long id) {
-        var plano = PlanoTestFactory.planoRequest().toEntity();
-        plano.setId(id);
-        return plano;
-    }
-
     private static @NonNull Plano criarPlanoDiferenteComId(Long id, String nome) {
         var plano = PlanoTestFactory.planoRequest().toEntity();
         plano.setId(id);
