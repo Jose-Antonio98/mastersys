@@ -1,12 +1,13 @@
 package dev.jose.mastersys.service;
 
-import dev.jose.mastersys.domain.Modalidade;
-import dev.jose.mastersys.exception.ModalidadeNaoEncontradaException;
+import dev.jose.mastersys.modalidade.domain.Modalidade;
+import dev.jose.mastersys.modalidade.exception.ModalidadeNaoEncontradaException;
 import dev.jose.mastersys.exception.RecursoJaAtivoException;
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
 import dev.jose.mastersys.exception.RecursoJaInativoException;
 import dev.jose.mastersys.factory.ModalidadeTestFactory;
-import dev.jose.mastersys.repository.ModalidadeRepository;
+import dev.jose.mastersys.modalidade.repository.ModalidadeRepository;
+import dev.jose.mastersys.modalidade.service.ModalidadeService;
 import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

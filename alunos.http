@@ -151,3 +151,12 @@ GET {{baseUrl}}/alunos?email=maria&page=0&size=10&sort=email,asc
 
 ### Listar por estado
 GET {{baseUrl}}/alunos?sp=maria&page=0&size=10&sort=email,asc
+
+### Faturamento mensal
+GET {{baseUrl}}/relatorios/faturamento-mensal
+
+### Alunos por cidade
+GET {{baseUrl}}/relatorios/alunos-por-cidade
+
+### Faturas em aberto
+GET {{baseUrl}}/relatorios/faturas-em-aberto

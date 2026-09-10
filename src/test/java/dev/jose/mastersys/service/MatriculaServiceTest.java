@@ -1,15 +1,20 @@
 package dev.jose.mastersys.service;
 
-import dev.jose.mastersys.domain.Aluno;
-import dev.jose.mastersys.domain.Matricula;
-import dev.jose.mastersys.domain.enums.StatusMatricula;
-import dev.jose.mastersys.dto.MatriculaFiltroRequest;
-import dev.jose.mastersys.dto.MatriculaResponse;
+import dev.jose.mastersys.aluno.domain.Aluno;
+import dev.jose.mastersys.aluno.exception.AlunoNaoEncontradoException;
+import dev.jose.mastersys.matricula.domain.Matricula;
+import dev.jose.mastersys.matricula.domain.enums.StatusMatricula;
+import dev.jose.mastersys.matricula.dto.MatriculaFiltroRequest;
+import dev.jose.mastersys.matricula.dto.MatriculaResponse;
 import dev.jose.mastersys.exception.*;
 import dev.jose.mastersys.factory.AlunoTestFactory;
 import dev.jose.mastersys.factory.MatriculaTestFactory;
-import dev.jose.mastersys.repository.AlunoRepository;
-import dev.jose.mastersys.repository.MatriculaRepository;
+import dev.jose.mastersys.aluno.repository.AlunoRepository;
+import dev.jose.mastersys.matricula.exception.DiaVencimentoInvalidoException;
+import dev.jose.mastersys.matricula.exception.MatriculaNaoEncontradaException;
+import dev.jose.mastersys.matricula.exception.StatusMatriculaInvalidoException;
+import dev.jose.mastersys.matricula.repository.MatriculaRepository;
+import dev.jose.mastersys.matricula.service.MatriculaService;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
