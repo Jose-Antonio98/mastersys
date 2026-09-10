@@ -1,4 +1,4 @@
-package dev.jose.mastersys.exception;
+package dev.jose.mastersys.plano.exception;
 
 public class PlanoNaoEncontradoException extends RuntimeException {
 

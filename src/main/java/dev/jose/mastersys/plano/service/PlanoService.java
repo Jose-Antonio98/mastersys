@@ -1,13 +1,15 @@
-package dev.jose.mastersys.service;
+package dev.jose.mastersys.plano.service;
 
-import dev.jose.mastersys.domain.Modalidade;
-import dev.jose.mastersys.domain.Plano;
-import dev.jose.mastersys.dto.PlanoAtualizacaoRequest;
-import dev.jose.mastersys.dto.PlanoRequest;
-import dev.jose.mastersys.dto.PlanoResponse;
+import dev.jose.mastersys.modalidade.domain.Modalidade;
+import dev.jose.mastersys.plano.domain.Plano;
+import dev.jose.mastersys.plano.dto.PlanoAtualizacaoRequest;
+import dev.jose.mastersys.plano.dto.PlanoRequest;
+import dev.jose.mastersys.plano.dto.PlanoResponse;
 import dev.jose.mastersys.exception.*;
-import dev.jose.mastersys.repository.ModalidadeRepository;
-import dev.jose.mastersys.repository.PlanosRepository;
+import dev.jose.mastersys.modalidade.exception.ModalidadeNaoEncontradaException;
+import dev.jose.mastersys.modalidade.repository.ModalidadeRepository;
+import dev.jose.mastersys.plano.exception.PlanoNaoEncontradoException;
+import dev.jose.mastersys.plano.repository.PlanosRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -118,6 +120,5 @@ public class PlanoService {
 
     private void alterarAtividade(Plano plano, boolean status) {
         plano.setAtivo(status);
-        planosRepository.save(plano);
     }
 }

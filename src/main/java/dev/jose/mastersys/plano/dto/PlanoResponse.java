@@ -1,13 +1,16 @@
-package dev.jose.mastersys.dto;
+package dev.jose.mastersys.plano.dto;
 
-import dev.jose.mastersys.domain.Plano;
+import dev.jose.mastersys.plano.domain.Plano;
+
+import java.math.BigDecimal;
 
 public record PlanoResponse(
         Long id,
         String nome,
         Boolean ativo,
         Long modalidadeId,
-        String modalidade
+        String modalidade,
+        BigDecimal valor
 ) {
 
     public static PlanoResponse fromEntity(Plano plano) {
@@ -16,7 +19,8 @@ public record PlanoResponse(
                 plano.getNome(),
                 plano.getAtivo(),
                 plano.getModalidade().getId(),
-                plano.getModalidade().getNome()
+                plano.getModalidade().getNome(),
+                plano.getValorMensal()
         );
     }
 }

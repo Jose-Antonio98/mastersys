@@ -1,5 +1,6 @@
-package dev.jose.mastersys.domain;
+package dev.jose.mastersys.plano.domain;
 
+import dev.jose.mastersys.modalidade.domain.Modalidade;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

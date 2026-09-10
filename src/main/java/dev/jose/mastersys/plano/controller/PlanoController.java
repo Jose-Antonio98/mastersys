@@ -1,9 +1,9 @@
-package dev.jose.mastersys.controller;
+package dev.jose.mastersys.plano.controller;
 
-import dev.jose.mastersys.dto.PlanoAtualizacaoRequest;
-import dev.jose.mastersys.dto.PlanoRequest;
-import dev.jose.mastersys.dto.PlanoResponse;
-import dev.jose.mastersys.service.PlanoService;
+import dev.jose.mastersys.plano.dto.PlanoAtualizacaoRequest;
+import dev.jose.mastersys.plano.dto.PlanoRequest;
+import dev.jose.mastersys.plano.dto.PlanoResponse;
+import dev.jose.mastersys.plano.service.PlanoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

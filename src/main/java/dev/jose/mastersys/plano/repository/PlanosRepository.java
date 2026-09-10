@@ -1,6 +1,6 @@
-package dev.jose.mastersys.repository;
+package dev.jose.mastersys.plano.repository;
 
-import dev.jose.mastersys.domain.Plano;
+import dev.jose.mastersys.plano.domain.Plano;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,9 +15,7 @@ public interface PlanosRepository extends JpaRepository<Plano,Long> {
           LOWER(FUNCTION('unaccent', :nome))
     AND p.modalidade.id = :modalidadeId
     """)
-    boolean existsByNomeIgnoreCaseAndAcentos(
-            @Param("nome") String nome,
-            @Param("modalidadeId") Long modalidadeId
+    boolean existsByNomeIgnoreCaseAndAcentos(@Param("nome") String nome, @Param("modalidadeId") Long modalidadeId
     );
 
     @Query("""
@@ -28,10 +26,9 @@ public interface PlanosRepository extends JpaRepository<Plano,Long> {
     AND p.modalidade.id = :modalidadeId
     AND p.id <> :id
     """)
-    boolean existsByNomeIgnoreCaseAndAcentosAndIdNot(
-            @Param("nome") String nome,
-            @Param("modalidadeId") Long modalidadeId,
-            @Param("id") Long id
+    boolean existsByNomeIgnoreCaseAndAcentosAndIdNot(@Param("nome") String nome,
+                                                     @Param("modalidadeId") Long modalidadeId,
+                                                     @Param("id") Long id
     );
 
 
