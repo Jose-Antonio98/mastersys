@@ -1,8 +1,10 @@
-package dev.jose.mastersys.domain;
+package dev.jose.mastersys.fatura.domain;
 
-import dev.jose.mastersys.domain.enums.Statusfatura;
+import dev.jose.mastersys.fatura.domain.enums.Statusfatura;
+import dev.jose.mastersys.matricula.domain.Matricula;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,12 +12,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "faturas_matriculas")
-@Data
+@Getter
+@Setter
 public class FaturaMatricula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
