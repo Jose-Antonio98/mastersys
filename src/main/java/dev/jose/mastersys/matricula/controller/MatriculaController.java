@@ -1,9 +1,9 @@
-package dev.jose.mastersys.controller;
+package dev.jose.mastersys.matricula.controller;
 
-import dev.jose.mastersys.dto.MatriculaFiltroRequest;
-import dev.jose.mastersys.dto.MatriculaRequest;
-import dev.jose.mastersys.dto.MatriculaResponse;
-import dev.jose.mastersys.service.MatriculaService;
+import dev.jose.mastersys.matricula.dto.MatriculaFiltroRequest;
+import dev.jose.mastersys.matricula.dto.MatriculaRequest;
+import dev.jose.mastersys.matricula.dto.MatriculaResponse;
+import dev.jose.mastersys.matricula.service.MatriculaService;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;

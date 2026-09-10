@@ -1,6 +1,6 @@
-package dev.jose.mastersys.dto;
+package dev.jose.mastersys.matricula.dto;
 
-import dev.jose.mastersys.domain.enums.StatusMatricula;
+import dev.jose.mastersys.matricula.domain.enums.StatusMatricula;
 
 import java.time.LocalDate;
 

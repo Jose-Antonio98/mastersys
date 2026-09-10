@@ -1,6 +1,7 @@
-package dev.jose.mastersys.domain;
+package dev.jose.mastersys.matricula.domain;
 
-import dev.jose.mastersys.domain.enums.StatusMatricula;
+import dev.jose.mastersys.aluno.domain.Aluno;
+import dev.jose.mastersys.matricula.domain.enums.StatusMatricula;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

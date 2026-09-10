@@ -1,7 +1,7 @@
-package dev.jose.mastersys.repository;
+package dev.jose.mastersys.matricula.repository;
 
-import dev.jose.mastersys.domain.Matricula;
-import dev.jose.mastersys.domain.enums.StatusMatricula;
+import dev.jose.mastersys.matricula.domain.Matricula;
+import dev.jose.mastersys.matricula.domain.enums.StatusMatricula;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

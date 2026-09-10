@@ -1,4 +1,4 @@
-package dev.jose.mastersys.exception;
+package dev.jose.mastersys.matricula.exception;
 
 public class DiaVencimentoInvalidoException extends RuntimeException {
 

@@ -1,7 +1,7 @@
-package dev.jose.mastersys.dto;
+package dev.jose.mastersys.matricula.dto;
 
-import dev.jose.mastersys.domain.Aluno;
-import dev.jose.mastersys.domain.Matricula;
+import dev.jose.mastersys.aluno.domain.Aluno;
+import dev.jose.mastersys.matricula.domain.Matricula;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

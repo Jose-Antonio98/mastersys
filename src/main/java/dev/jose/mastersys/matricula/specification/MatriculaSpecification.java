@@ -1,9 +1,9 @@
-package dev.jose.mastersys.specification;
+package dev.jose.mastersys.matricula.specification;
 
 
-import dev.jose.mastersys.domain.Matricula;
-import dev.jose.mastersys.domain.enums.StatusMatricula;
-import dev.jose.mastersys.dto.MatriculaFiltroRequest;
+import dev.jose.mastersys.matricula.domain.Matricula;
+import dev.jose.mastersys.matricula.domain.enums.StatusMatricula;
+import dev.jose.mastersys.matricula.dto.MatriculaFiltroRequest;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.text.Normalizer;
