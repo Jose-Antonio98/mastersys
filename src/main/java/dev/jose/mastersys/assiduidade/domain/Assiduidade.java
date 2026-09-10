@@ -1,7 +1,7 @@
-package dev.jose.mastersys.domain;
+package dev.jose.mastersys.assiduidade.domain;
 
+import dev.jose.mastersys.matricula.domain.Matricula;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
