@@ -1,7 +1,7 @@
 package dev.jose.mastersys.factory;
 
 
-import dev.jose.mastersys.dto.ModalidadeRequest;
+import dev.jose.mastersys.modalidade.dto.ModalidadeRequest;
 
 public class ModalidadeTestFactory {
 

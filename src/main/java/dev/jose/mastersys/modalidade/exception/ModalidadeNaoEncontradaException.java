@@ -1,4 +1,4 @@
-package dev.jose.mastersys.exception;
+package dev.jose.mastersys.modalidade.exception;
 
 public class ModalidadeNaoEncontradaException extends RuntimeException {
 

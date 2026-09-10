@@ -1,6 +1,6 @@
-package dev.jose.mastersys.dto;
+package dev.jose.mastersys.modalidade.dto;
 
-import dev.jose.mastersys.domain.Modalidade;
+import dev.jose.mastersys.modalidade.domain.Modalidade;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 

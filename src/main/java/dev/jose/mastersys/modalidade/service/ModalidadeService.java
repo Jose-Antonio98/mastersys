@@ -1,10 +1,11 @@
-package dev.jose.mastersys.service;
+package dev.jose.mastersys.modalidade.service;
 
-import dev.jose.mastersys.domain.Modalidade;
-import dev.jose.mastersys.dto.ModalidadeRequest;
-import dev.jose.mastersys.dto.ModalidadeResponse;
+import dev.jose.mastersys.modalidade.domain.Modalidade;
+import dev.jose.mastersys.modalidade.dto.ModalidadeRequest;
+import dev.jose.mastersys.modalidade.dto.ModalidadeResponse;
 import dev.jose.mastersys.exception.*;
-import dev.jose.mastersys.repository.ModalidadeRepository;
+import dev.jose.mastersys.modalidade.exception.ModalidadeNaoEncontradaException;
+import dev.jose.mastersys.modalidade.repository.ModalidadeRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

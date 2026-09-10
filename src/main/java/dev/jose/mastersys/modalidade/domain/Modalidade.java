@@ -1,4 +1,4 @@
-package dev.jose.mastersys.domain;
+package dev.jose.mastersys.modalidade.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package dev.jose.mastersys.repository;
+package dev.jose.mastersys.modalidade.repository;
 
-import dev.jose.mastersys.domain.Modalidade;
+import dev.jose.mastersys.modalidade.domain.Modalidade;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

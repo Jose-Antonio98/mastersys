@@ -1,8 +1,8 @@
-package dev.jose.mastersys.controller;
+package dev.jose.mastersys.modalidade.controller;
 
-import dev.jose.mastersys.dto.ModalidadeRequest;
-import dev.jose.mastersys.dto.ModalidadeResponse;
-import dev.jose.mastersys.service.ModalidadeService;
+import dev.jose.mastersys.modalidade.dto.ModalidadeRequest;
+import dev.jose.mastersys.modalidade.dto.ModalidadeResponse;
+import dev.jose.mastersys.modalidade.service.ModalidadeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
