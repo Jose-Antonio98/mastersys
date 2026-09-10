@@ -1,10 +1,10 @@
-package dev.jose.mastersys.controller;
+package dev.jose.mastersys.aluno.controller;
 
-import dev.jose.mastersys.dto.AlunoFiltroRequest;
-import dev.jose.mastersys.dto.AlunoRequest;
-import dev.jose.mastersys.dto.AlunoResponse;
-import dev.jose.mastersys.dto.AlunoAtualizacaoRequest;
-import dev.jose.mastersys.service.AlunoService;
+import dev.jose.mastersys.aluno.dto.AlunoFiltroRequest;
+import dev.jose.mastersys.aluno.dto.AlunoRequest;
+import dev.jose.mastersys.aluno.dto.AlunoResponse;
+import dev.jose.mastersys.aluno.dto.AlunoAtualizacaoRequest;
+import dev.jose.mastersys.aluno.service.AlunoService;
 
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;

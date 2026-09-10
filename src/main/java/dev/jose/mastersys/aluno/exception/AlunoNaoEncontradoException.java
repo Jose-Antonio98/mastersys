@@ -1,4 +1,4 @@
-package dev.jose.mastersys.exception;
+package dev.jose.mastersys.aluno.exception;
 
 public class AlunoNaoEncontradoException extends RuntimeException{
 

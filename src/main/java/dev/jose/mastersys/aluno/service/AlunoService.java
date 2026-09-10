@@ -1,15 +1,15 @@
-package dev.jose.mastersys.service;
+package dev.jose.mastersys.aluno.service;
 
-import dev.jose.mastersys.domain.Aluno;
-import dev.jose.mastersys.dto.AlunoFiltroRequest;
-import dev.jose.mastersys.dto.AlunoRequest;
-import dev.jose.mastersys.dto.AlunoResponse;
-import dev.jose.mastersys.dto.AlunoAtualizacaoRequest;
-import dev.jose.mastersys.exception.AlunoNaoEncontradoException;
+import dev.jose.mastersys.aluno.domain.Aluno;
+import dev.jose.mastersys.aluno.dto.AlunoFiltroRequest;
+import dev.jose.mastersys.aluno.dto.AlunoRequest;
+import dev.jose.mastersys.aluno.dto.AlunoResponse;
+import dev.jose.mastersys.aluno.dto.AlunoAtualizacaoRequest;
+import dev.jose.mastersys.aluno.exception.AlunoNaoEncontradoException;
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
-import dev.jose.mastersys.repository.AlunoRepository;
+import dev.jose.mastersys.aluno.repository.AlunoRepository;
 
-import dev.jose.mastersys.specification.AlunoSpecification;
+import dev.jose.mastersys.aluno.specification.AlunoSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

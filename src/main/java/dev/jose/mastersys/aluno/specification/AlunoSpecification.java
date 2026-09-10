@@ -1,7 +1,7 @@
-package dev.jose.mastersys.specification;
+package dev.jose.mastersys.aluno.specification;
 
-import dev.jose.mastersys.domain.Aluno;
-import dev.jose.mastersys.dto.AlunoFiltroRequest;
+import dev.jose.mastersys.aluno.domain.Aluno;
+import dev.jose.mastersys.aluno.dto.AlunoFiltroRequest;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.text.Normalizer;

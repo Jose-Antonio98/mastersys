@@ -1,4 +1,4 @@
-package dev.jose.mastersys.dto;
+package dev.jose.mastersys.aluno.dto;
 
 public record AlunoFiltroRequest(
         String nome,

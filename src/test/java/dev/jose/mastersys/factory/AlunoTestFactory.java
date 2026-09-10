@@ -1,7 +1,7 @@
 package dev.jose.mastersys.factory;
 
-import dev.jose.mastersys.domain.enums.Sexo;
-import dev.jose.mastersys.dto.AlunoRequest;
+import dev.jose.mastersys.aluno.domain.enums.Sexo;
+import dev.jose.mastersys.aluno.dto.AlunoRequest;
 
 import java.time.LocalDate;
 

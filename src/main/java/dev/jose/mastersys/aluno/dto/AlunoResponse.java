@@ -1,7 +1,7 @@
-package dev.jose.mastersys.dto;
+package dev.jose.mastersys.aluno.dto;
 
-import dev.jose.mastersys.domain.Aluno;
-import dev.jose.mastersys.domain.enums.Sexo;
+import dev.jose.mastersys.aluno.domain.Aluno;
+import dev.jose.mastersys.aluno.domain.enums.Sexo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

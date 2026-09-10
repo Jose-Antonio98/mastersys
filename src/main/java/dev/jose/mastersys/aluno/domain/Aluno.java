@@ -1,6 +1,6 @@
-package dev.jose.mastersys.domain;
+package dev.jose.mastersys.aluno.domain;
 
-import dev.jose.mastersys.domain.enums.Sexo;
+import dev.jose.mastersys.aluno.domain.enums.Sexo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

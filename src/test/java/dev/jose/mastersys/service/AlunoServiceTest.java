@@ -1,13 +1,14 @@
 package dev.jose.mastersys.service;
 
-import dev.jose.mastersys.domain.Aluno;
-import dev.jose.mastersys.dto.AlunoFiltroRequest;
-import dev.jose.mastersys.dto.AlunoResponse;
-import dev.jose.mastersys.exception.AlunoNaoEncontradoException;
+import dev.jose.mastersys.aluno.service.AlunoService;
+import dev.jose.mastersys.aluno.domain.Aluno;
+import dev.jose.mastersys.aluno.dto.AlunoFiltroRequest;
+import dev.jose.mastersys.aluno.dto.AlunoResponse;
+import dev.jose.mastersys.aluno.exception.AlunoNaoEncontradoException;
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
 import dev.jose.mastersys.factory.AlunoAtualizacaoRequestBuilder;
 import dev.jose.mastersys.factory.AlunoTestFactory;
-import dev.jose.mastersys.repository.AlunoRepository;
+import dev.jose.mastersys.aluno.repository.AlunoRepository;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -283,7 +284,6 @@ public class AlunoServiceTest {
                 .dataNascimento(LocalDate.of(1265, 9, 14)).build();
 
         //when
-
         var response = alunoService.atualizarParcial(1L, request);
 
         //then
