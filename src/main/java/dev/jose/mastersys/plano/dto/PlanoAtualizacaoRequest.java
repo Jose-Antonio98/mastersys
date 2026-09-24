@@ -21,6 +21,6 @@ public record PlanoAtualizacaoRequest(
 
     public void preencher (Plano plano) {
         if (nome != null ) plano.setNome(nome);
-        if (valor != null ) plano.setValorMensal(valor);
+        if (valor != null ) plano.setValor(valor);
     }
 }

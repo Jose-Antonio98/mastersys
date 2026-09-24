@@ -29,6 +29,6 @@ public record PlanoRequest(
 
     public void preencher (Plano plano) {
         plano.setNome(nome);
-        plano.setValorMensal(valor);
+        plano.setValor(valor);
     }
 }
