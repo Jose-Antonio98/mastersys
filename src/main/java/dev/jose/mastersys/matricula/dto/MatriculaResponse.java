@@ -12,7 +12,7 @@ public record MatriculaResponse(
         Integer diaVencimento,
         LocalDate dataEncerramento,
         StatusMatricula status,
-        Aluno aluno
+        Long alunoId
 ) {
 
     public static MatriculaResponse fromEntity(Matricula matricula) {
@@ -22,7 +22,7 @@ public record MatriculaResponse(
                 matricula.getDiaVencimento(),
                 matricula.getDataEncerramento(),
                 matricula.getStatus(),
-                matricula.getAluno()
+                matricula.getAluno().getId()
         );
     }
 }
