@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class MatriculaController {
 
     @GetMapping
     public Page<MatriculaResponse> listarMatriculas(@ParameterObject MatriculaFiltroRequest filtro,
-                                                    @ParameterObject Pageable pageable){
+                                                    @ParameterObject @PageableDefault(size = 10, sort = "id") Pageable pageable){
         return matriculaService.listar(filtro, pageable);
     }
     @GetMapping("/{id}")

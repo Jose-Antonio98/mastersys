@@ -20,7 +20,7 @@ public record PlanoResponse(
                 plano.getAtivo(),
                 plano.getModalidade().getId(),
                 plano.getModalidade().getNome(),
-                plano.getValorMensal()
+                plano.getValor()
         );
     }
 }

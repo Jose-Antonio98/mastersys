@@ -1,6 +1,6 @@
 package dev.jose.mastersys.fatura.domain.enums;
 
-public enum Statusfatura {
+public enum StatusFatura {
     ABERTA,
     PAGA,
     CANCELADA,

@@ -17,14 +17,16 @@ public class Plano {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String nome;
 
+    @Column(nullable = false)
     private Boolean ativo = true;
 
-    @Column(name = "valor_mensal")
-    private BigDecimal valorMensal;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal valor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "modalidade_id")
+    @JoinColumn(name = "modalidade_id", nullable = false)
     private Modalidade modalidade;
 }
