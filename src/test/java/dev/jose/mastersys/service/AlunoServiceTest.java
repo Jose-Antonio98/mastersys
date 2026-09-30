@@ -6,6 +6,7 @@ import dev.jose.mastersys.aluno.dto.AlunoFiltroRequest;
 import dev.jose.mastersys.aluno.dto.AlunoResponse;
 import dev.jose.mastersys.aluno.exception.AlunoNaoEncontradoException;
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
+import dev.jose.mastersys.exception.ExclusaoComRelacionamentosException;
 import dev.jose.mastersys.factory.AlunoAtualizacaoRequestBuilder;
 import dev.jose.mastersys.factory.AlunoTestFactory;
 import dev.jose.mastersys.aluno.repository.AlunoRepository;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -354,6 +356,22 @@ public class AlunoServiceTest {
         //then
         verify(alunoRepository).findById(1L);
         verify(alunoRepository).delete(aluno);
+        verify(alunoRepository).flush();
+        verifyNoMoreInteractions(alunoRepository);
+    }
+
+    @Test
+    void deveImpedirExcluirAlunoComRegistrosRelacionados() {
+        var aluno = criarAluno();
+        when(alunoRepository.findById(1L)).thenReturn(Optional.of(aluno));
+        doThrow(new DataIntegrityViolationException("foreign key"))
+                .when(alunoRepository).flush();
+
+        assertThrows(ExclusaoComRelacionamentosException.class, () -> alunoService.excluir(1L));
+
+        verify(alunoRepository).findById(1L);
+        verify(alunoRepository).delete(aluno);
+        verify(alunoRepository).flush();
         verifyNoMoreInteractions(alunoRepository);
     }
 
