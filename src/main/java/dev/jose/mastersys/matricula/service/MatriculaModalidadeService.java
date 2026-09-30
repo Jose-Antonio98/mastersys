@@ -1,12 +1,15 @@
 package dev.jose.mastersys.matricula.service;
 
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
+import dev.jose.mastersys.exception.RecursoJaInativoException;
 import dev.jose.mastersys.matricula.domain.Matricula;
 import dev.jose.mastersys.matricula.domain.MatriculaModalidade;
+import dev.jose.mastersys.matricula.domain.enums.StatusMatricula;
 import dev.jose.mastersys.matricula.dto.MatriculaModalidadeRequest;
 import dev.jose.mastersys.matricula.dto.MatriculaModalidadeResponse;
 import dev.jose.mastersys.matricula.exception.MatriculaModalidadeNaoEncontradaException;
 import dev.jose.mastersys.matricula.exception.MatriculaNaoEncontradaException;
+import dev.jose.mastersys.matricula.exception.StatusMatriculaInvalidoException;
 import dev.jose.mastersys.matricula.repository.MatriculaModalidadeRepository;
 import dev.jose.mastersys.matricula.repository.MatriculaRepository;
 import dev.jose.mastersys.plano.domain.Plano;
@@ -42,6 +45,7 @@ public class MatriculaModalidadeService {
         var matricula = buscarMatricula(request);
         var plano = buscarPlano(request);
 
+        validarDisponibilidadeParaVinculo(matricula, plano);
         validarDuplicidade(request.matriculaId(), plano.getModalidade().getId());
 
         var matriculaModalidade = criarEntidade(plano, matricula);
@@ -99,5 +103,21 @@ public class MatriculaModalidadeService {
     private MatriculaModalidade buscarEntidadePorId(Long id) {
         return matriculaModalidadeRepository.findById(id)
                 .orElseThrow(() -> new MatriculaModalidadeNaoEncontradaException(id));
+    }
+
+    private void validarDisponibilidadeParaVinculo(Matricula matricula, Plano plano) {
+        if (matricula.getStatus() != StatusMatricula.ATIVA) {
+            throw new StatusMatriculaInvalidoException(
+                    "Não é possível criar vínculo para matrícula inativa."
+            );
+        }
+
+        if (!Boolean.TRUE.equals(plano.getAtivo())) {
+            throw new RecursoJaInativoException("Plano", plano.getNome());
+        }
+
+        if (!Boolean.TRUE.equals(plano.getModalidade().getAtiva())) {
+            throw new RecursoJaInativoException("Modalidade", plano.getModalidade().getNome());
+        }
     }
 }

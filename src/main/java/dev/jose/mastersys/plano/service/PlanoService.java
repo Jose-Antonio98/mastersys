@@ -6,6 +6,7 @@ import dev.jose.mastersys.plano.dto.PlanoAtualizacaoRequest;
 import dev.jose.mastersys.plano.dto.PlanoRequest;
 import dev.jose.mastersys.plano.dto.PlanoResponse;
 import dev.jose.mastersys.exception.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import dev.jose.mastersys.modalidade.exception.ModalidadeNaoEncontradaException;
 import dev.jose.mastersys.modalidade.repository.ModalidadeRepository;
 import dev.jose.mastersys.plano.exception.PlanoNaoEncontradoException;
@@ -89,7 +90,13 @@ public class PlanoService {
 
     @Transactional
     public void removerPlano(Long id) {
-        planosRepository.delete(buscarEntityPorId(id));
+        var plano = buscarEntityPorId(id);
+        try {
+            planosRepository.delete(plano);
+            planosRepository.flush();
+        } catch (DataIntegrityViolationException ex) {
+            throw new ExclusaoComRelacionamentosException("o plano", ex);
+        }
     }
 
 

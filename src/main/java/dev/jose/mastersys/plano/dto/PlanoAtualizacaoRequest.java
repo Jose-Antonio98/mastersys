@@ -1,10 +1,7 @@
 package dev.jose.mastersys.plano.dto;
 
 import dev.jose.mastersys.plano.domain.Plano;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -15,7 +12,7 @@ public record PlanoAtualizacaoRequest(
         String nome,
 
         @NotNull(message = "O valor é obrigatório.")
-        @PositiveOrZero(message = "O valor do plano não pode ser negativo.")
+        @Positive(message = "O valor do plano não pode ser negativo.")
         BigDecimal valor
 ) {
 
