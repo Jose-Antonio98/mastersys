@@ -7,9 +7,11 @@ import dev.jose.mastersys.aluno.dto.AlunoResponse;
 import dev.jose.mastersys.aluno.dto.AlunoAtualizacaoRequest;
 import dev.jose.mastersys.aluno.exception.AlunoNaoEncontradoException;
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
+import dev.jose.mastersys.exception.ExclusaoComRelacionamentosException;
 import dev.jose.mastersys.aluno.repository.AlunoRepository;
 
 import dev.jose.mastersys.aluno.specification.AlunoSpecification;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -68,7 +70,12 @@ public class AlunoService {
     @Transactional
     public void excluir(Long id){
         Aluno aluno = buscarEntityPorId(id);
-        alunoRepository.delete(aluno);
+        try {
+            alunoRepository.delete(aluno);
+            alunoRepository.flush();
+        } catch (DataIntegrityViolationException ex) {
+            throw new ExclusaoComRelacionamentosException("o aluno", ex);
+        }
     }
 
     private Aluno buscarEntityPorId(Long id){

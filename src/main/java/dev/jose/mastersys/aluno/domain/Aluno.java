@@ -2,6 +2,7 @@ package dev.jose.mastersys.aluno.domain;
 
 import dev.jose.mastersys.aluno.domain.enums.Sexo;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,18 +28,36 @@ public class Aluno {
     @Column(length = 1)
     private Sexo sexo;
 
+    @Column(length = 20)
     private String telefone;
+
+    @Column(length = 20)
     private String celular;
+
+    @Email
     private String email;
+
     private String observacao;
+
+    @Column(length = 150)
     private String endereco;
+
+    @Column(length = 20)
     private String numero;
+
+    @Column(length = 100)
     private String complemento;
+
+    @Column(length = 100)
     private String bairro;
+
+    @Column(length = 100)
     private String cidade;
 
     @Column(name = "estado", length = 2)
     private String estado;
+
+    @Column(length = 20)
     private String cep;
 
 
