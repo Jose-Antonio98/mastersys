@@ -5,6 +5,7 @@ import dev.jose.mastersys.modalidade.exception.ModalidadeNaoEncontradaException;
 import dev.jose.mastersys.exception.RecursoJaAtivoException;
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
 import dev.jose.mastersys.exception.RecursoJaInativoException;
+import dev.jose.mastersys.exception.ExclusaoComRelacionamentosException;
 import dev.jose.mastersys.factory.ModalidadeTestFactory;
 import dev.jose.mastersys.modalidade.repository.ModalidadeRepository;
 import dev.jose.mastersys.modalidade.service.ModalidadeService;
@@ -15,6 +16,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -383,6 +385,23 @@ public class ModalidadeServiceTest {
         //then
         verify(modalidadeRepository).findById(1L);
         verify(modalidadeRepository).delete(modalidade);
+        verify(modalidadeRepository).flush();
+        verifyNoMoreInteractions(modalidadeRepository);
+    }
+
+    @Test
+    void deveImpedirExcluirModalidadeComRegistrosRelacionados() {
+        var modalidade = criarModalidade();
+        when(modalidadeRepository.findById(1L)).thenReturn(Optional.of(modalidade));
+        doThrow(new DataIntegrityViolationException("foreign key"))
+                .when(modalidadeRepository).flush();
+
+        assertThrows(ExclusaoComRelacionamentosException.class,
+                () -> modalidadeService.removerModalidade(1L));
+
+        verify(modalidadeRepository).findById(1L);
+        verify(modalidadeRepository).delete(modalidade);
+        verify(modalidadeRepository).flush();
         verifyNoMoreInteractions(modalidadeRepository);
     }
 
