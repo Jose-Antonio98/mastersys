@@ -9,6 +9,7 @@ import dev.jose.mastersys.plano.domain.Plano;
 import dev.jose.mastersys.modalidade.exception.ModalidadeNaoEncontradaException;
 import dev.jose.mastersys.plano.exception.PlanoNaoEncontradoException;
 import dev.jose.mastersys.exception.RecursoJaCadastradoException;
+import dev.jose.mastersys.exception.ExclusaoComRelacionamentosException;
 import dev.jose.mastersys.factory.ModalidadeTestFactory;
 import dev.jose.mastersys.factory.PlanoAtualizacaoRequestBuilder;
 import dev.jose.mastersys.factory.PlanoTestFactory;
@@ -22,6 +23,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 
 import java.math.BigDecimal;
@@ -82,7 +84,7 @@ public class PlanoServiceTest {
         assertEquals(response.id(), captor.getValue().getId());
         assertEquals(response.nome(), captor.getValue().getNome());
         assertEquals(response.modalidadeId(), captor.getValue().getModalidade().getId());
-        assertEquals(response.valor(), captor.getValue().getValorMensal());
+        assertEquals(response.valor(), captor.getValue().getValor());
 
         verifyNoMoreInteractions(planosRepository, modalidadeRepository);
     }
@@ -152,7 +154,7 @@ public class PlanoServiceTest {
         assertNotNull(response);
         assertEquals(plano.getId(), response.id());
         assertEquals(request.nome(), response.nome());
-        assertEquals(planoOriginal.getValorMensal(), response.valor());
+        assertEquals(planoOriginal.getValor(), response.valor());
 
         verify(planosRepository, times(1)).findById(plano.getId());
         ArgumentCaptor<Plano> captor = ArgumentCaptor.forClass(Plano.class);
@@ -160,7 +162,7 @@ public class PlanoServiceTest {
 
         assertEquals(planoOriginal.getId(), captor.getValue().getId());
         assertEquals("Anual", captor.getValue().getNome());
-        assertEquals(planoOriginal.getValorMensal(), captor.getValue().getValorMensal());
+        assertEquals(planoOriginal.getValor(), captor.getValue().getValor());
         assertEquals(planoOriginal.getModalidade().getId(), captor.getValue().getModalidade().getId());
         assertEquals(planoOriginal.getModalidade().getNome(), captor.getValue().getModalidade().getNome());
 
@@ -201,7 +203,7 @@ public class PlanoServiceTest {
 
         assertEquals(planoOriginal.getId(), captor.getValue().getId());
         assertEquals(request.nome(), captor.getValue().getNome());
-        assertEquals(request.valor(), captor.getValue().getValorMensal());
+        assertEquals(request.valor(), captor.getValue().getValor());
         assertEquals(planoOriginal.getModalidade().getId(), captor.getValue().getModalidade().getId());
         assertEquals(planoOriginal.getModalidade().getNome(), captor.getValue().getModalidade().getNome());
 
@@ -274,7 +276,7 @@ public class PlanoServiceTest {
         assertNotNull(response);
         assertEquals(plano.getId(), response.id());
         assertEquals(plano.getNome(), response.nome());
-        assertEquals(plano.getValorMensal(), response.valor());
+        assertEquals(plano.getValor(), response.valor());
         assertEquals(plano.getModalidade().getId(), response.modalidadeId());
         verify(planosRepository, times(1)).findById(plano.getId());
 
@@ -477,6 +479,22 @@ public class PlanoServiceTest {
         //then
         verify(planosRepository).findById(plano.getId());
         verify(planosRepository).delete(plano);
+        verify(planosRepository).flush();
+        verifyNoMoreInteractions(planosRepository);
+    }
+
+    @Test
+    void deveImpedirRemoverPlanoComRegistrosRelacionados() {
+        var plano = criarPlano();
+        when(planosRepository.findById(plano.getId())).thenReturn(Optional.of(plano));
+        doThrow(new DataIntegrityViolationException("foreign key"))
+                .when(planosRepository).flush();
+
+        assertThrows(ExclusaoComRelacionamentosException.class, () -> planoService.removerPlano(plano.getId()));
+
+        verify(planosRepository).findById(plano.getId());
+        verify(planosRepository).delete(plano);
+        verify(planosRepository).flush();
         verifyNoMoreInteractions(planosRepository);
     }
 

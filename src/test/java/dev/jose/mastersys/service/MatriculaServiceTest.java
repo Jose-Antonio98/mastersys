@@ -72,7 +72,7 @@ public class MatriculaServiceTest {
                     return matricula;});
 
         //when
-        var response= matriculaService.criarMatricula(request);
+        var response = matriculaService.criarMatricula(request);
 
 
         //then
@@ -80,7 +80,7 @@ public class MatriculaServiceTest {
         assertNotNull(response);
         assertEquals(1L, response.id());
         assertEquals(request.diaVencimento(), response.diaVencimento());
-        assertEquals(aluno, response.aluno());
+        assertEquals(aluno.getId(), response.alunoId());
         assertEquals(StatusMatricula.ATIVA, response.status());
 
         verify(matriculaRepository).existsByAlunoIdAndStatus(request.alunoId(), StatusMatricula.ATIVA);
@@ -160,7 +160,7 @@ public class MatriculaServiceTest {
         assertEquals(1L, response.id());
         assertEquals(request.getDiaVencimento(), response.diaVencimento());
         assertEquals(request.getStatus(), response.status());
-        assertEquals(request.getAluno(), response.aluno());
+        assertEquals(request.getAluno().getId(), response.alunoId());
 
         verify(matriculaRepository).findById(1L);
         verifyNoMoreInteractions(matriculaRepository);
@@ -203,6 +203,10 @@ public class MatriculaServiceTest {
         assertNotNull(resultado);
         assertEquals(3, resultado.getTotalElements());
         assertEquals(3, resultado.getContent().size());
+
+        assertEquals(1L, resultado.getContent().get(0).alunoId());
+        assertEquals(1L, resultado.getContent().get(1).alunoId());
+        assertEquals(1L, resultado.getContent().get(2).alunoId());
 
         verify(matriculaRepository).findAll(ArgumentMatchers.<Specification<Matricula>>any(), eq(pageable));
         verifyNoMoreInteractions(matriculaRepository);
@@ -298,7 +302,7 @@ public class MatriculaServiceTest {
     }
 
     @Test
-    void deveAlterarDiaVencimentoComDiaMaiorPermitido() {
+    void deveImpedirAlteracaoDiaVencimentoMaiorQue31() {
 
         //given
         var matricula = criarMatricula();
