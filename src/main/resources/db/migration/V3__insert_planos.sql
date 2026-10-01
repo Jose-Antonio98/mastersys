@@ -1,4 +1,4 @@
-INSERT INTO planos (modalidade_id, nome, valor_mensal) VALUES
+INSERT INTO planos (modalidade_id, nome, valor) VALUES
 
 -- Jiu-Jitsu
 (1, 'Mensal', 120.00),

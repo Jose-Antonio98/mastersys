@@ -9,6 +9,7 @@ import dev.jose.mastersys.modalidade.repository.ModalidadeRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 
@@ -80,7 +81,13 @@ public class ModalidadeService {
 
     @Transactional
     public void removerModalidade(Long id) {
-        modalidadeRepository.delete(buscarEntityPorId(id));
+        var modalidade = buscarEntityPorId(id);
+        try {
+            modalidadeRepository.delete(modalidade);
+            modalidadeRepository.flush();
+        } catch (DataIntegrityViolationException ex) {
+            throw new ExclusaoComRelacionamentosException("a modalidade", ex);
+        }
     }
 
     private Modalidade buscarEntityPorId(Long id){

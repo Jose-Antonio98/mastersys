@@ -48,12 +48,12 @@ public class FaturaMatriculaService {
     @Transactional
     public FaturaMatriculaResponse criarFatura(FaturaMatriculaRequest request) {
         var matricula = buscarMatricula(request.matriculaId());
-        var dataVencimento = calcularDataVencimento(matricula.getDiaVencimento());
+        var mesCompetencia = YearMonth.from(LocalDate.now());
+        var dataVencimento = calcularDataVencimento(matricula.getDiaVencimento(), mesCompetencia);
+
         validarFaturaNaoDuplicada(matricula, dataVencimento);
 
-        return FaturaMatriculaResponse.fromEntity(
-                salvarFatura(matricula, dataVencimento)
-        );
+        return FaturaMatriculaResponse.fromEntity(salvarFatura(matricula, dataVencimento));
     }
 
     public Page<FaturaMatriculaResponse> listarFaturas(FaturaFiltroRequest filtro, Pageable pageable) {
@@ -81,12 +81,17 @@ public class FaturaMatriculaService {
 
     @Transactional
     public void gerarFaturasDoPeriodo() {
+        var hoje = LocalDate.now();
+        var mesCompetencia = YearMonth.from(hoje);
         var matriculas = matriculaRepository.findAllByStatus(StatusMatricula.ATIVA);
 
         for (var matricula : matriculas) {
-            var dataVencimento = calcularDataVencimento(matricula.getDiaVencimento());
+            var dataVencimento = calcularDataVencimento(matricula.getDiaVencimento(), mesCompetencia);
 
-            if (!faturaMatriculaRepository.existsByMatriculaIdAndDataVencimento(matricula.getId(), dataVencimento)) {
+            var faturaJaExiste = faturaMatriculaRepository.existsByMatriculaIdAndDataVencimento(
+                    matricula.getId(), dataVencimento);
+
+            if (!faturaJaExiste) {
                 criarFaturasParaMatricula(matricula, dataVencimento);
             }
         }
@@ -140,17 +145,14 @@ public class FaturaMatriculaService {
         }
     }
 
-    private LocalDate calcularDataVencimento(Integer dia) {
-        YearMonth mesAtual = YearMonth.now();
-
+    private LocalDate calcularDataVencimento(Integer dia,  YearMonth mesCompetencia) {
         if (dia == null || dia < 1 || dia > 31) {
             throw new DiaVencimentoInvalidoException("O dia de vencimento deve ser entre 1 e 31");
         }
 
-        YearMonth mesCobranca = dia < LocalDate.now().getDayOfMonth() ? mesAtual.plusMonths(1) : mesAtual;
-        int diaValido = Math.min(dia, mesCobranca.lengthOfMonth());
+        int diaValido = Math.min(dia, mesCompetencia.lengthOfMonth());
 
-        return mesCobranca.atDay(diaValido);
+        return mesCompetencia.atDay(diaValido);
     }
 
     private FaturaMatricula buscarFatura(Long id) {

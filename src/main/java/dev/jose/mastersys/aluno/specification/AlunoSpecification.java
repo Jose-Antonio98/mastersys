@@ -25,7 +25,7 @@ public class AlunoSpecification {
 
             return criteriaBuilder.like(criteriaBuilder.function("unaccent",
                     String.class,criteriaBuilder.lower(root.get("nome"))),
-                    "%" + removerAcentos(nome.toLowerCase()) + "%");
+                    "%" + removerAcentos(nome.toLowerCase().trim()) + "%");
 
         };
     }
@@ -37,7 +37,7 @@ public class AlunoSpecification {
             }
 
             return criteriaBuilder.like(criteriaBuilder.lower(root.get("email")),
-                    "%" + email.toLowerCase() + "%");
+                    "%" + email.toLowerCase().trim() + "%");
         };
     }
 
@@ -48,7 +48,7 @@ public class AlunoSpecification {
             }
 
             return criteriaBuilder.like(criteriaBuilder.lower(root.get("celular")),
-                    "%" + celular.toLowerCase() + "%");
+                    "%" + celular.toLowerCase().trim() + "%");
         };
     }
 
@@ -60,7 +60,7 @@ public class AlunoSpecification {
 
             return criteriaBuilder.like(criteriaBuilder.function("unaccent",
                             String.class,criteriaBuilder.lower(root.get("cidade"))),
-                    "%" + removerAcentos(cidade.toLowerCase()) + "%");
+                    "%" + removerAcentos(cidade.toLowerCase().trim()) + "%");
 
         };
     }
@@ -72,7 +72,7 @@ public class AlunoSpecification {
             }
 
             return criteriaBuilder.equal(criteriaBuilder.upper(root.get("estado")),
-                    estado.toUpperCase());
+                    estado.toUpperCase().trim());
         };
     }
 

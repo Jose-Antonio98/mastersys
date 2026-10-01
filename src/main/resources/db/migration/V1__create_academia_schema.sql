@@ -31,7 +31,7 @@ create table planos(
     id BIGSERIAL PRIMARY KEY,
     modalidade_id BIGINT not null references modalidades(id),
     nome varchar(100) not null,
-    valor_mensal numeric(10,2) not null check (valor_mensal >= 0),
+    valor numeric(10,2) not null check (valor >= 0),
     ativo BOOLEAN not null default true,
     UNIQUE (modalidade_id, nome),
     UNIQUE (id, modalidade_id)
@@ -70,9 +70,3 @@ create table faturas_matriculas(
   unique (matricula_id, data_vencimento)
 );
 
-create table assiduidade(
-    id BIGSERIAL primary key,
-    matricula_id BIGINT not null references matriculas(id),
-    data_entrada timestamp not null default current_timestamp,
-    data_saida timestamp
-)
